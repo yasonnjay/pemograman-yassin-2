@@ -1,4 +1,5 @@
 const path = require('path');
+const { Op } = require('sequelize');
 const JenisKelamin = require(path.join(__dirname, '../../src/Models/jenis_kelamin/jenisKelaminModel'));
 
 const resolvers = {

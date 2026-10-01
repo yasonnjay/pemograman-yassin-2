@@ -3,7 +3,7 @@ const cors = require("cors");
 const app = express();
 
 const { ApolloServer } = require("@apollo/server");
-const { expressMiddleware } = require("@apollo/server/express4");
+const { expressMiddleware } = require("@as-integrations/express5");
 
 // Sesuaikan folder 'jenis kelamin' yang menggunakan spasi
 const typeDefs = require("./graphql/jenis kelamin/schema");
@@ -18,20 +18,20 @@ const server = new ApolloServer({
   resolvers,
 });
 
+
+app.use(cors());
+app.use(express.json());
+
 async function startGraphQL() {
   await server.start();
   app.use(
     "/graphql",
-    cors(),
-    express.json(),
     expressMiddleware(server)
   );
 }
 
 startGraphQL();
 
-app.use(cors());
-app.use(express.json());
 console.log("Port dari .env:", process.env.PORT);
 
 app.get("/", (req, res) => {
