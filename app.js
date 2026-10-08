@@ -6,16 +6,33 @@ const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@as-integrations/express5");
 
 // Sesuaikan folder 'jenis kelamin' yang menggunakan spasi
-const typeDefs = require("./graphql/jenis kelamin/schema");
+const typeDefsJenisKelamin = require("./graphql/jenis kelamin/schema");
 const jenisKelaminResolvers = require("./graphql/jenis kelamin/resolvers");
 
+const typeDefsAngkatan = require("./graphql/angkatan/schema");
+const angkatanResolvers = require("./graphql/angkatan/resolvers");
+
+const typeDefsMahasiswa = require("./graphql/mahasiswa/schema");
+const mahasiswaResolvers = require("./graphql/mahasiswa/resolvers");
+
+const typeDefsProgramStudi = require("./graphql/program_studi/schema");
+const programStudiResolvers = require("./graphql/program_studi/resolvers");
+
 const resolvers = [
-  jenisKelaminResolvers
+  jenisKelaminResolvers,
+  angkatanResolvers,
+  mahasiswaResolvers,
+  programStudiResolvers
 ];
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  typeDefs: [
+    typeDefsJenisKelamin,
+    typeDefsAngkatan,
+    typeDefsMahasiswa,
+    typeDefsProgramStudi
+  ],
+  resolvers
 });
 
 

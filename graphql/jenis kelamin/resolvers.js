@@ -1,6 +1,6 @@
 const path = require('path');
 const { Op } = require('sequelize');
-const JenisKelamin = require(path.join(__dirname, '../../src/Models/jenis_kelamin/jenisKelaminModel'));
+const Angkatan = require('../../src/Models/angkatan/angkatanModel');
 
 const resolvers = {
   Query: {
@@ -53,6 +53,10 @@ const resolvers = {
   Mutation: {
   
     tambahJenisKelamin: async (_, { input }) => {
+      if (input.kode.length !== 1) {
+        throw new Error("Kode jenis kelamin harus tepat 1 karakter");
+      }
+
       const waktu = new Date();
       return await JenisKelamin.create({
         ...input,
@@ -64,6 +68,10 @@ const resolvers = {
 
     
     updateJenisKelamin: async (_, { id, input }) => {
+      if (input.kode.length !== 1) {
+        throw new Error("Kode jenis kelamin harus tepat 1 karakter");
+      }
+
       const data = await JenisKelamin.findOne({
         where: {
           id_jenis_kelamin: id
